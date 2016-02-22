@@ -1,4 +1,4 @@
-## My first Reactjs commponent
+## My first Reactjs component
 
 In this repo I will teach meself reactjs.
 And move on to testing the components.
