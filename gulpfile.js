@@ -56,6 +56,13 @@ gulp.task('mocha:watch', function(){
  }));
 
 
+
+
+/**
+* the component function is mostly code from the AngularClass NG6 starter repo
+* I modded it to use react components
+* @repo https://github.com/AngularClass/NG6-starter/
+*/
 var path = require('path');
 var yargs = require('yargs');
 var rename = require('gulp-rename');
