@@ -69,13 +69,13 @@ var paths = {
 	blankTemplates: path.join(__dirname, 'generator', 'component/**/*.**')
 };
 
+var name = yargs.argv.name;
+var parentPath = yargs.argv.parent || '';
+var destPath = path.join(resolveToComponents(), parentPath, name);
 gulp.task('component', function() {
   var cap = function(val) {
     return val.charAt(0).toUpperCase() + val.slice(1);
   };
-  var name = yargs.argv.name;
-  var parentPath = yargs.argv.parent || '';
-  var destPath = path.join(resolveToComponents(), parentPath, name);
 
   return gulp.src(paths.blankTemplates)
     .pipe(template({
