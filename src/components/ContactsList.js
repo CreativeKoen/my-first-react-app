@@ -19,10 +19,10 @@ export default class ContactsList extends React.Component {
 				return contact.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
 			}
 		);
-				// <input type="text" className="form-control" value={this.state.search} onChange={this.updateSearch.bind(this)}/>
-				// <hr />
 		return (
 			<div>
+				<input type="text" className="form-control" value={this.state.search} onChange={this.updateSearch.bind(this)}/>
+				<hr />
 				<ul>
 					{filteredContacts.map((contact) => {
 						return <Contact contact={contact} key={contact.name}/>

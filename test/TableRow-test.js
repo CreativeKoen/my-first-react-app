@@ -8,7 +8,7 @@ import Table from '../src/components/table/table.js';
 import TableRow from '../src/components/table/tablerow.js';
 
 let user = [
-	{firstname: 'Koen', lastname: 'something', email: 'creativekoen@gmai.com' }
+	{firstname: 'Koen!', lastname: 'something', email: 'creativekoen@gmai.com' }
 ];
 
 describe('tableRow', () => {
