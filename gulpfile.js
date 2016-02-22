@@ -55,7 +55,20 @@ gulp.task('mocha:watch', function(){
     },
  }));
 
-/*
+
+var path = require('path');
+var yargs = require('yargs');
+var rename = require('gulp-rename');
+var template = require('gulp-template');
+
+var resolveToComponents = function(glob) {
+  return path.join('src/components'); // src/components/{glob}
+};
+
+var paths = {
+	blankTemplates: path.join(__dirname, 'generator', 'component/**/*.**')
+};
+
 gulp.task('component', function() {
   var cap = function(val) {
     return val.charAt(0).toUpperCase() + val.slice(1);
@@ -74,7 +87,6 @@ gulp.task('component', function() {
     }))
     .pipe(gulp.dest(destPath));
 });
-*/
 
 gulp.task('webpack', function(){
 	return gulp.src('src/App.js')
