@@ -9,7 +9,7 @@ var istanbul = require('gulp-istanbul');
 var isparta = require('isparta');
 
 var TEST_FILES = 'tests/**/*-test.js';
-var SRC_FILES = 'src/**/**/*.js';
+var SRC_FILES = 'react/**/**/*.js';
 
 gulp.task('mocha', function(){
 	return gulp.src('test/*-test.js')
