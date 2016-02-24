@@ -1,7 +1,7 @@
 'use strict';
 import React from 'react';
-
-export default class <% name %> extends React.Component {
+import TodoRow from './todoRow.component';
+export default class Todo extends React.Component {
 	constructor() {
 		super();
 		this.state= {
@@ -22,7 +22,7 @@ export default class <% name %> extends React.Component {
 				if (typeof data.error !== 'undefined') {
 				 	this.setState({error: data.error});
 				} else {
-					this.setState({data: data , ajaxError: null});
+					this.setState({data: data.todoes , ajaxError: null});
 				}
 			},
 			error: (xhr, status, err) => {
@@ -38,7 +38,7 @@ export default class <% name %> extends React.Component {
 
 	componentDidMount() {
 		this.loadDataFromServer();
-		console.log('component did mount',Date.now());
+		// console.log('component did mount',Date.now());
 	}
 	render () {
 		// if loading
@@ -63,9 +63,19 @@ export default class <% name %> extends React.Component {
 		return (
 			<div className="panel panel-default">
 				{loading}
-					{this.state.loading}
-					{this.state.error}
-					{this.state.data}
+				<table className="table table-condensed">
+						<thead>
+			      	<tr>
+				        <th>loading</th>
+				        <th>error</th>
+				        <th>todo id</th>
+				        <th>todo msg</th>
+			      	</tr>
+			    	</thead>
+						<tbody key={this.state.data.id}>
+							<TodoRow loading={this.state.loading} error={this.state.error} todoes={this.state.data} />
+						</tbody>
+				</table>
 			</div>
 		)
 	}

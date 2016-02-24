@@ -11,6 +11,14 @@ var isparta = require('isparta');
 var TEST_FILES = 'tests/**/*-test.js';
 var SRC_FILES = 'react/**/**/*.js';
 
+
+gulp.task('webpack', function(){
+	return gulp.src('react/App.js')
+  .pipe(webpack( require('./webpack.config.js') ))
+	//.pipe(uglify())
+  .pipe(gulp.dest('api/public'));
+});
+
 gulp.task('mocha', function(){
 	return gulp.src('test/*-test.js')
 		.pipe(mocha({reporter: 'list', bail:true, ui: 'bdd'}));
@@ -20,14 +28,13 @@ gulp.task('mocha:watch', function(){
 	gulp.watch(['test/*-test.js'], gulp.parallel('mocha'));
 });
 
-// Files to process
-/*
+/**
  * Instrument files using istanbul and isparta
  */
  var jsxCoverage = require('gulp-jsx-coverage');
 
- gulp.task('mocha_tests', jsxCoverage.createTask({
-    src: ['test/*-test.js', 'src/**/**/*.js'],
+ gulp.task('coverage', jsxCoverage.createTask({
+    src: ['test/*-test.js', 'react/**/**/*.js', '!react/App.js','!react/routes.js','!react/generator/**/**.*'],
 		isparta: true,
     istanbul: {
 		    preserveComments: true,
@@ -47,16 +54,26 @@ gulp.task('mocha:watch', function(){
 	  },
     coverage: {
 			reporters: ['text'],
-        //  reporters: ['text', 'json', 'lcov'],
-        //directory: 'coverage'
+        // reporters: ['text', 'json', 'lcov'],
+        // directory: 'coverage'
     },
     mocha: {
-		  reporter: 'spec'
+		  reporter: 'nyan'
     },
  }));
 
-
-
+var browserSync = require('browser-sync');
+var connect = require('gulp-connect-php');
+gulp.task('reload', function () { browserSync.reload(); });
+gulp.task('serve', function() {
+	connect.server({ base: './api/public'}, function (){
+    browserSync({
+      proxy: '127.0.0.1:8000/',
+			port: 3000
+    });
+  });
+	gulp.watch('react/**/*.*', gulp.series('webpack', 'reload') );
+});
 
 /**
 * the component function is mostly code from the AngularClass NG6 starter repo
@@ -68,17 +85,20 @@ var yargs = require('yargs');
 var rename = require('gulp-rename');
 var template = require('gulp-template');
 
-var resolveToComponents = function(glob) {
-  return path.join('src/components'); // src/components/{glob}
-};
-
 var paths = {
-	blankTemplates: path.join(__dirname, 'generator', 'component/**/*.**')
+	reactComponents: path.join(__dirname, 'react/components'),
+	blankTemplates: path.join(__dirname, 'react/generator', 'component/**/*.**')
 };
 
-var name = yargs.argv.name;
+
+var resolveToComponents = function(glob) {
+  return paths.reactComponents; // src/components/{glob}
+};
+
+var name = yargs.argv.name || '';
 var parentPath = yargs.argv.parent || '';
 var destPath = path.join(resolveToComponents(), parentPath, name);
+
 gulp.task('component', function() {
   var cap = function(val) {
     return val.charAt(0).toUpperCase() + val.slice(1);
@@ -93,11 +113,4 @@ gulp.task('component', function() {
       path.basename = path.basename.replace('temp', name);
     }))
     .pipe(gulp.dest(destPath));
-});
-
-gulp.task('webpack', function(){
-	return gulp.src('src/App.js')
-  .pipe(webpack( require('./webpack.config.js') ))
-	.pipe(uglify())
-  .pipe(gulp.dest('dist/'));
 });

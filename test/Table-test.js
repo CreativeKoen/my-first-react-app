@@ -4,8 +4,8 @@ import {createRenderer} from 'react-addons-test-utils';
 import expectJSX from 'expect-jsx';
 expect.extend(expectJSX);
 
-import Table from '../src/components/table/table.js';
-import TableRow from '../src/components/table/tablerow.js';
+import Table from '../react/components/table/table.js';
+import TableRow from '../react/components/table/tablerow.js';
 
 let users = [
 	{firstname: 'Koen', lastname: 'something', email: 'creativekoen@gmai.com' }

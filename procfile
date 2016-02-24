@@ -1,0 +1,2 @@
+laravel: php api/artisan serve
+gulp: gulp serve

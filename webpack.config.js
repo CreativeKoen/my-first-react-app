@@ -1,7 +1,7 @@
 var path = require('path');
 module.exports = {
 	entry: [
-		'./src/App.js'
+		'./react/App.js'
 	],
 	output: {
 		path: path.resolve(__dirname, 'dist'),
@@ -19,6 +19,6 @@ module.exports = {
 	},
 	devServer: {
 	    inline: true,
-			contentBase: './dist'
+			contentBase: './public'
   }
 };

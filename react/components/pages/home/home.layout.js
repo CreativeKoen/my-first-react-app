@@ -2,21 +2,19 @@
 import React from 'react';
 import Nav from '../../nav/nav';
 import Table from '../../table/table';
-
+import Todo from '../../todoComponent/todo.component';
 
 export default class HomeLayout extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			users: [
-				{firstname: 'koen', lastname: 'something', email: 'creativekoen@gmail.com' }
-				,{firstname: 'john', lastname: 'do', email: 'johndo@gmail.com' }
+	constructor(props) {
+		super(props);
+		this.state = { users: [
+			{firstname: 'koen', lastname: 'something', email: 'creativekoen@gmail.com' }
+			,{firstname: 'john', lastname: 'do', email: 'johndo@gmail.com' }
 			]
 		}
 	}
 	// hier geef je this.props.user naar de table component
 	render () {
-		// this.setState( { user.firstname: "henk"});
 		return (
 			<div className="container-fuild">
 				<Nav />
@@ -25,6 +23,7 @@ export default class HomeLayout extends React.Component {
 						<div className="row">
 							<div className="col-md-12">
 								<Table users={this.state.users} />
+								<Todo url="/api/test" pollInterval={60000} />
 							</div>
 						</div>
 					</div>
