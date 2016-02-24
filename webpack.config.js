@@ -4,7 +4,7 @@ module.exports = {
 		'./react/App.js'
 	],
 	output: {
-		path: path.resolve(__dirname, 'dist'),
+		path: path.resolve(__dirname, 'public/js'),
 		filename: 'bundle.js'
 	},
 	module: {
@@ -13,7 +13,8 @@ module.exports = {
 			loader: 'babel',
 			exclude: /(node_modules|bower_components)/,
 			query: {
-				presets: ['react', 'es2015']
+				presets: ['react', 'es2015', 'stage-0'],
+				plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy'],
       }
 		}]
 	},

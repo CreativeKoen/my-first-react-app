@@ -15,13 +15,13 @@ var SRC_FILES = 'react/**/**/*.js';
 gulp.task('webpack', function(){
 	return gulp.src('react/App.js')
   .pipe(webpack( require('./webpack.config.js') ))
-	//.pipe(uglify())
+	// .pipe(uglify())
   .pipe(gulp.dest('api/public'));
 });
 
 gulp.task('mocha', function(){
 	return gulp.src('test/*-test.js')
-		.pipe(mocha({reporter: 'list', bail:true, ui: 'bdd'}));
+		.pipe(mocha({reporter: 'list'}));
 });
 
 gulp.task('mocha:watch', function(){
